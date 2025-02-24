@@ -1,0 +1,31 @@
+
+import csv
+
+def contar_compras_por_pais(nombre_archivo, pais_buscado):
+
+
+    contador_compras = 0
+
+    try:
+        with open(nombre_archivo, 'r', newline='', encoding='utf-8') as archivo_csv:
+            lector_csv = csv.DictReader(archivo_csv)
+            for fila in lector_csv:
+                if fila['Country'] == pais_buscado:
+                    contador_compras += 1
+    except FileNotFoundError:
+        print(f"Error: El archivo '{nombre_archivo}' no fue encontrado.")
+        return None
+    except Exception as e:
+        print(f"Ocurrió un error: {e}")
+        return None
+
+    return contador_compras
+
+# Ejemplo de uso:
+nombre_archivo = 'SalesJan2009.csv'
+pais_buscado = input("Dame un pais en ingles y con la primera letra en mayuscula , por favor : ")
+numero_compras = contar_compras_por_pais(nombre_archivo, pais_buscado)
+
+if numero_compras is not None:
+    print(f"Número de compras en {pais_buscado}: {numero_compras}")
+
